@@ -34,4 +34,18 @@ class LoginView(APIView):
         return Response(data={
             "Token: {token}".format(token = token)
         }, status=status.HTTP_200_OK)
-            
+
+class RegisterView(APIView):
+    def post(self, request):
+        data = request.data
+        request_serializer = UserSerializer(data=data)
+
+        if not request_serializer.is_valid(raise_exception=False):
+            return Response(data=request_serializer.errors, status=status.HTTP_405_METHOD_NOT_ALLOWED)
+        user = UserSerializer.create(validated_data = request_serializer.validated_data)
+        return Response(
+            data= {
+                "Successfully created user"
+            }, 
+            status=status.HTTP_200_OK
+        )

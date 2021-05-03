@@ -12,7 +12,7 @@ class UserSerializer(serializers.ModelSerializer):
     is_active = serializers.BooleanField(default=True)
     date_joined = serializers.DateField(default=date.today())
 
-    def create(self, validated_data):
+    def create(validated_data):
         return CustomUser.objects.create(**validated_data)
 
 
@@ -23,4 +23,3 @@ class UserSerializer(serializers.ModelSerializer):
 class LoginRequestSerializer(serializers.Serializer):
     email = serializers.RegexField(regex=EMAIL_REGEX, required=True)
     password = serializers.CharField(required=True)
-    
