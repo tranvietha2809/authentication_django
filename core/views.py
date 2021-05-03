@@ -42,7 +42,7 @@ class RegisterView(APIView):
 
         if not request_serializer.is_valid(raise_exception=False):
             return Response(data=request_serializer.errors, status=status.HTTP_405_METHOD_NOT_ALLOWED)
-        user = UserSerializer.create(validated_data = request_serializer.validated_data)
+        user = request_serializer.create()
         return Response(
             data= {
                 "Successfully created user"
